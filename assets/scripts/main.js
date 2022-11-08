@@ -75,8 +75,9 @@ function initFormHandler() {
     const formElement = document.querySelector('form');
     // B3. TODO - Add an event listener for the 'submit' event, which fires when the
     //            submit button is clicked
-    const submitElement = document.querySelector('button[type="submit"]');
-    submitElement.addEventListener('click', (event) => {
+    const mainElement = document.querySelector('main');
+    formElement.addEventListener('submit', (event) => {
+
         const formData = new FormData(formElement);
         const recipeObject = new Object();
         for (const pair of formData.entries()) {
@@ -84,11 +85,10 @@ function initFormHandler() {
         }
         const recipeCard = document.createElement('recipe-card');
         recipeCard.data = recipeObject;
-        document.querySelector('main').appendChild(recipeCard);
+        mainElement.appendChild(recipeCard);
         let recipesArray = getRecipesFromStorage();
         recipesArray.push(recipeObject);
         saveRecipesToStorage(recipesArray);
-
     });
     // Steps B4-B9 will occur inside the event listener from step B3
     // B4. TODO - Create a new FormData object from the <form> element reference above
@@ -101,12 +101,12 @@ function initFormHandler() {
     // B9. TODO - Get the recipes array from localStorage, add this new recipe to it, and
     //            then save the recipes array back to localStorage
 
-    const clearLocalStorage = document.getElementsByClassName('danger');
+    const clearLocalStorageButton = document.getElementsByClassName('danger')[0];
     // B10. TODO - Get a reference to the "Clear Local Storage" button
     // B11. TODO - Add a click event listener to clear local storage button
-    clearLocalStorage.addEventListener('click', (event) => {
+    clearLocalStorageButton.addEventListener('click', (event) => {
         localStorage.clear();
-        mainElement.innerHTML = '';
+        document.querySelector('main').innerHTML = '';
     });
     // Steps B12 & B13 will occur inside the event listener from step B11
     // B12. TODO - Clear the local storage
